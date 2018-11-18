@@ -86,18 +86,6 @@ public class ArtistsEntity {
     public void setOrganizationsByOrganizations(OrganizationsEntity organizationsByOrganizations) {
         this.organizationsByOrganizations = organizationsByOrganizations;
     }
-
-
-
-    //    @OneToMany(mappedBy = "artistsByArtists")
-//    public Collection<ArtistProjectsEntity> getArtistProjectsByOrganization() {
-//        return artistProjectsByArtists;
-//    }
-//
-//
-//    public void setArtistProjectsByOrganization(Collection<ArtistProjectsEntity> artistProjectsByArtists) {
-//        this.artistProjectsByArtists = artistProjectsByArtists;
-//    }
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "artist_projects",

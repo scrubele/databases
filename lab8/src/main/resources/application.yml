@@ -1,0 +1,19 @@
+  spring:
+    datasource:
+      url: jdbc:mysql://localhost:3306/artists?useSSL=false
+      username: scrubele
+      password: scrubele
+      driver-class-name: com.mysql.jdbc.Driver
+    jpa:
+      # Show or not log for each sql query
+      database-platform: org.hibernate.dialect.MySQL5Dialect
+      show-sql: true
+      hibernate:
+        # Hibernate ddl auto (validate, create, create-drop, update)
+        ddl-auto: create
+        # Naming strategy
+        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
+
+  #server:
+  #  port: 9000
