@@ -78,7 +78,7 @@ public class Artist implements EntityInterface {
         this.position = position;
     }
 
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_organization",  referencedColumnName = "id", nullable = false)
     @JsonIgnore
     public Organization getOrganizationsByOrganizations() {
@@ -89,38 +89,39 @@ public class Artist implements EntityInterface {
         this.organizationsByOrganizations = organizationsByOrganizations;
     }
 
-//    @ManyToMany(cascade = { CascadeType.ALL })
-//    @JoinTable(
-//            name = "artist_projects",
-//            joinColumns = { @JoinColumn(name = "artist_id", referencedColumnName = "id", nullable = false) },
-//            inverseJoinColumns = { @JoinColumn(name = "projects_id", referencedColumnName = "id", nullable = false), }
-//    )
-//    public Set<Project> getProjects() {
-//        return projects;
-//    }
-//
-//    public void setProjects(Set<Project> projects) {
-//        this.projects = projects;
-//    }
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "artist_projects",
+            joinColumns = { @JoinColumn(name = "artist_id", referencedColumnName = "id", nullable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "projects_id", referencedColumnName = "id", nullable = false), }
+    )
+    @JsonIgnore
+    public Set<Project> getProjects() {
+        return projects;
+    }
 
-//    public void addProject(Project project){
-//        if(!getProjects().contains(project)){
-//            getProjects().add(project);
-//        }
-//        if(!project.getArtists().contains(this)){
-//            project.getArtists().add(this);
-//        }
-//    }
-//
-//    public void deleteProjectEnitity(Project project){
-//        if(getProjects().contains(project)){
-//            getProjects().remove(project);
-//        }
-//        if(project.getArtists().contains(this)){
-//            project.getArtists().remove(this);
-//        }
-//    }
-//
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
+    public void addProject(Project project){
+        if(!getProjects().contains(project)){
+            getProjects().add(project);
+        }
+        if(!project.getArtists().contains(this)){
+            project.getArtists().add(this);
+        }
+    }
+
+    public void deleteProjectEnitity(Project project){
+        if(getProjects().contains(project)){
+            getProjects().remove(project);
+        }
+        if(project.getArtists().contains(this)){
+            project.getArtists().remove(this);
+        }
+    }
+
 
     @Override
     public String toString() {

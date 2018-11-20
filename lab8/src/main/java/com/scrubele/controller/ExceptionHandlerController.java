@@ -1,6 +1,6 @@
 package com.scrubele.controller;
 
-import com.scrubele.DTO.MessageDTO;
+import com.scrubele.DTO.impl.MessageDTO;
 import com.scrubele.exceptions.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;

@@ -60,15 +60,15 @@ public class Project implements EntityInterface {
     }
 
 
-//    @ManyToMany(targetEntity = Artist.class, mappedBy="projects")
-//    public Set<Artist> getArtists() {
-//        return artists;
-//    }
-//
-//    public void setArtists(Set<Artist> artists) {
-//        this.artists = artists;
-//    }
-//
+    @ManyToMany(targetEntity = Artist.class, mappedBy="projects")
+    public Set<Artist> getArtists() {
+        return artists;
+    }
+
+    public void setArtists(Set<Artist> artists) {
+        this.artists = artists;
+    }
+
 
 
     @Override

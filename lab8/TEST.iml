@@ -20,6 +20,14 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.yaml:snakeyaml:1.19" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-web:5.0.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.0.7.RELEASE" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.0.7.RELEASE" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.5.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.0.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-orm:5.0.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.0.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.0.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.0.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.0.3.RELEASE" level="project" />

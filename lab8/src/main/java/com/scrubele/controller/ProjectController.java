@@ -1,6 +1,6 @@
 package com.scrubele.controller;
 
-import com.scrubele.DTO.ProjectDTO;
+import com.scrubele.DTO.impl.ProjectDTO;
 import com.scrubele.domain.Project;
 import com.scrubele.exceptions.ExistsArtistsForProjectException;
 import com.scrubele.exceptions.NoSuchArtistException;
@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,13 +24,13 @@ public class ProjectController {
     @Autowired
     ProjectService projectService;
 
-    @GetMapping(value = "/api/project/Artist/{Artist_id}")
-    public ResponseEntity<List<ProjectDTO>> getProjectsByArtistID(@PathVariable Long Artist_id) throws NoSuchArtistException, NoSuchProjectException {
-        List<Project> ProjectList = projectService.getProjectsByArtistId(Artist_id);
+    @GetMapping(value = "/api/project/artist/{artist_id}")
+    public ResponseEntity<Set<ProjectDTO>> getProjectsByArtistID(@PathVariable Long artist_id) throws NoSuchArtistException, NoSuchProjectException {
+        Set<Project> ProjectSet = projectService.getProjectsByArtistId(artist_id);
         Link link = linkTo(methodOn(ProjectController.class).getAllProjects()).withSelfRel();
 
-        List<ProjectDTO> ProjectsDTO = new ArrayList<>();
-        for (Project entity : ProjectList) {
+        Set<ProjectDTO> ProjectsDTO = new HashSet<>();
+        for (Project entity : ProjectSet) {
             Link selfLink = new Link(link.getHref() + "/" + entity.getId()).withSelfRel();
             ProjectDTO dto = new ProjectDTO(entity, selfLink);
             ProjectsDTO.add(dto);
@@ -40,9 +40,9 @@ public class ProjectController {
     }
 
     @GetMapping(value = "/api/project/{project_id}")
-    public ResponseEntity<ProjectDTO> getProject(@PathVariable Long Project_id) throws NoSuchProjectException, NoSuchArtistException {
-        Project Project = projectService.getProject(Project_id);
-        Link link = linkTo(methodOn(ProjectController.class).getProject(Project_id)).withSelfRel();
+    public ResponseEntity<ProjectDTO> getProject(@PathVariable Long project_id) throws NoSuchProjectException, NoSuchArtistException {
+        Project Project = projectService.getProject(project_id);
+        Link link = linkTo(methodOn(ProjectController.class).getProject(project_id)).withSelfRel();
 
         ProjectDTO projectDTO = new ProjectDTO(Project, link);
 
@@ -50,12 +50,12 @@ public class ProjectController {
     }
 
     @GetMapping(value = "/api/project")
-    public ResponseEntity<List<ProjectDTO>> getAllProjects() throws NoSuchProjectException, NoSuchArtistException {
-        List<Project> ProjectList = projectService.getAllProjects();
+    public ResponseEntity<Set<ProjectDTO>> getAllProjects() throws NoSuchProjectException, NoSuchArtistException {
+        List<Project> ProjectSet = projectService.getAllProjects();
         Link link = linkTo(methodOn(ProjectController.class).getAllProjects()).withSelfRel();
 
-        List<ProjectDTO> ProjectsDTO = new ArrayList<>();
-        for (Project entity : ProjectList) {
+        Set<ProjectDTO> ProjectsDTO = new HashSet<>();
+        for (Project entity : ProjectSet) {
             Link selfLink = new Link(link.getHref() + "/" + entity.getId()).withSelfRel();
             ProjectDTO dto = new ProjectDTO(entity, selfLink);
             ProjectsDTO.add(dto);
@@ -75,10 +75,10 @@ public class ProjectController {
     }
 
     @PutMapping(value = "/api/project/{project_id}")
-    public ResponseEntity<ProjectDTO> updateProject(@RequestBody Project uProject, @PathVariable Long Project_id) throws NoSuchProjectException, NoSuchArtistException {
-        projectService.updateProject(uProject, Project_id);
-        Project Project = projectService.getProject(Project_id);
-        Link link = linkTo(methodOn(ProjectController.class).getProject(Project_id)).withSelfRel();
+    public ResponseEntity<ProjectDTO> updateProject(@RequestBody Project uProject, @PathVariable Long project_id) throws NoSuchProjectException, NoSuchArtistException {
+        projectService.updateProject(uProject, project_id);
+        Project Project = projectService.getProject(project_id);
+        Link link = linkTo(methodOn(ProjectController.class).getProject(project_id)).withSelfRel();
 
         ProjectDTO projectDTO = new ProjectDTO(Project, link);
 
@@ -86,8 +86,8 @@ public class ProjectController {
     }
 
     @DeleteMapping(value = "/api/project/{project_id}")
-    public  ResponseEntity deleteProject(@PathVariable Long Project_id) throws ExistsArtistsForProjectException, NoSuchProjectException {
-        projectService.deleteProject(Project_id);
+    public  ResponseEntity deleteProject(@PathVariable Long project_id) throws ExistsArtistsForProjectException, NoSuchProjectException {
+        projectService.deleteProject(project_id);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

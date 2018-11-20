@@ -22,9 +22,9 @@ public class ArtistController {
     @Autowired
     ArtistService ArtistService;
 // get Artist by class id
-    @GetMapping(value = "/api/artist/Organization/{organization_id}")
-    public ResponseEntity<List<ArtistDTO>> getArtistsByOrganizationID(@PathVariable Long class_id) throws NoSuchOrganizationException, NoSuchArtistException, NoSuchProjectException {
-        List<Artist> ArtistSet = ArtistService.getArtistByOrganizationId(class_id);
+    @GetMapping(value = "/api/artist/organization/{organization_id}")
+    public ResponseEntity<List<ArtistDTO>> getArtistsByOrganizationID(@PathVariable Long organization_id) throws NoSuchOrganizationException, NoSuchArtistException, NoSuchProjectException {
+        Set<Artist> ArtistSet = ArtistService.getArtistByOrganizationId(organization_id);
 
         Link link = linkTo(methodOn(ArtistController.class).getAllArtists()).withSelfRel();
 
@@ -38,22 +38,22 @@ public class ArtistController {
         return new ResponseEntity<>(ArtistsDTO, HttpStatus.OK);
     }
 // get Artist
-    @GetMapping(value = "/api/artist/{Artist_id}")
-    public ResponseEntity<ArtistDTO> getArtist(@PathVariable Long Artist_id) throws NoSuchArtistException, NoSuchProjectException {
-        Artist Artist = ArtistService.getArtist(Artist_id);
-        Link link = linkTo(methodOn(ArtistController.class).getArtist(Artist_id)).withSelfRel();
+    @GetMapping(value = "/api/artist/{artist_id}")
+    public ResponseEntity<ArtistDTO> getArtist(@PathVariable Long artist_id) throws NoSuchArtistException, NoSuchProjectException, NoSuchOrganizationException {
+        Artist artist = ArtistService.getArtist(artist_id);
+        Link link = linkTo(methodOn(ArtistController.class).getArtist(artist_id)).withSelfRel();
 
-        ArtistDTO artistDTO = new ArtistDTO(Artist, link);
+        ArtistDTO artistDTO = new ArtistDTO(artist, link);
 
         return new ResponseEntity<>(artistDTO, HttpStatus.OK);
     }
 // get all Artists
     @GetMapping(value = "/api/artist")
-    public ResponseEntity<List<ArtistDTO>> getAllArtists() throws NoSuchArtistException, NoSuchProjectException {
+    public ResponseEntity<Set<ArtistDTO>> getAllArtists() throws NoSuchArtistException, NoSuchProjectException, NoSuchOrganizationException {
         List<Artist> artistSet = ArtistService.getAllArtists();
         Link link = linkTo(methodOn(ArtistController.class).getAllArtists()).withSelfRel();
 
-        List<ArtistDTO> artistsDTO = new ArrayList<>();
+        Set<ArtistDTO> artistsDTO = new HashSet<>();
         for (Artist entity : artistSet) {
             Link selfLink = new Link(link.getHref() + "/" + entity.getId()).withSelfRel();
             ArtistDTO dto = new ArtistDTO(entity, selfLink);
@@ -63,12 +63,12 @@ public class ArtistController {
         return new ResponseEntity<>(artistsDTO, HttpStatus.OK);
     }
 // get Artist
-    @GetMapping(value = "/api/artist/project/{Project_id}")
-    public ResponseEntity<List<ArtistDTO>> getArtistsByProjectID(@PathVariable Long Project_id) throws NoSuchProjectException, NoSuchArtistException {
-        List<Artist> ArtistSet = ArtistService.getArtistsByProjectId(Project_id);
+    @GetMapping(value = "/api/artist/project/{project_id}")
+    public ResponseEntity<Set<ArtistDTO>> getArtistsByProjectID(@PathVariable Long project_id) throws NoSuchProjectException, NoSuchArtistException, NoSuchOrganizationException {
+        Set<Artist> ArtistSet = ArtistService.getArtistsByProjectId(project_id);
         Link link = linkTo(methodOn(ArtistController.class).getAllArtists()).withSelfRel();
 
-        List<ArtistDTO> ArtistsDTO = new ArrayList<>();
+        Set<ArtistDTO> ArtistsDTO = new HashSet<>();
         for (Artist entity : ArtistSet) {
             Link selfLink = new Link(link.getHref() + "/" + entity.getId()).withSelfRel();
             ArtistDTO dto = new ArtistDTO(entity, selfLink);
@@ -78,10 +78,10 @@ public class ArtistController {
         return new ResponseEntity<>(ArtistsDTO, HttpStatus.OK);
     }
 // add Artist
-    @PostMapping(value = "/api/artist/Organization/{organization_id}")
-    public  ResponseEntity<ArtistDTO> addArtist(@RequestBody Artist newArtist, @PathVariable Long class_id)
+    @PostMapping(value = "/api/artist/organization/{organization_id}")
+    public  ResponseEntity<ArtistDTO> addArtist(@RequestBody Artist newArtist, @PathVariable Long organization_id)
             throws NoSuchOrganizationException, NoSuchArtistException, NoSuchProjectException {
-        ArtistService.createArtist(newArtist, class_id);
+        ArtistService.createArtist(newArtist, organization_id);
         Link link = linkTo(methodOn(ArtistController.class).getArtist(newArtist.getId())).withSelfRel();
 
         ArtistDTO artistDTO = new ArtistDTO(newArtist, link);
@@ -89,43 +89,43 @@ public class ArtistController {
         return new ResponseEntity<>(artistDTO, HttpStatus.CREATED);
     }
 //update Artist
-    @PutMapping(value = "/api/artist/{Artist_id}/Organization/{Organization_id}")
+    @PutMapping(value = "/api/artist/{artist_id}/organization/{organization_id}")
     public  ResponseEntity<ArtistDTO> updateArtist(@RequestBody Artist uArtist,
-                                                    @PathVariable Long Artist_id, @PathVariable Long class_id)
+                                                    @PathVariable Long artist_id, @PathVariable Long organization_id)
             throws NoSuchOrganizationException, NoSuchArtistException, NoSuchProjectException {
-        ArtistService.updateArtist(uArtist, Artist_id, class_id);
-        Artist Artist = ArtistService.getArtist(Artist_id);
-        Link link = linkTo(methodOn(ArtistController.class).getArtist(Artist_id)).withSelfRel();
+        ArtistService.updateArtist(uArtist, artist_id, organization_id);
+        Artist Artist = ArtistService.getArtist(artist_id);
+        Link link = linkTo(methodOn(ArtistController.class).getArtist(artist_id)).withSelfRel();
 
         ArtistDTO artistDTO = new ArtistDTO(Artist, link);
 
         return new ResponseEntity<>(artistDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/api/artist/{Artist_id}")
-    public  ResponseEntity deleteArtist(@PathVariable Long Artist_id) throws NoSuchArtistException, ExistsProjectForArtistException, ExistsProjectForArtistException {
-        ArtistService.deleteArtist(Artist_id);
+    @DeleteMapping(value = "/api/artist/{artist_id}")
+    public  ResponseEntity deleteArtist(@PathVariable Long artist_id) throws NoSuchArtistException, ExistsProjectForArtistException, ExistsProjectForArtistException {
+        ArtistService.deleteArtist(artist_id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/api/artist/{Artist_id}/project/{Project_id}")
-    public  ResponseEntity<ArtistDTO> addProjectForArtist(@PathVariable Long Artist_id, @PathVariable Long Project_id)
-            throws NoSuchArtistException, NoSuchProjectException, AlreadyExistsProjectInArtistException, ProjectAbsentException {
-        ArtistService.addProjectForArtist(Artist_id,Project_id);
-        Artist Artist = ArtistService.getArtist(Artist_id);
-        Link link = linkTo(methodOn(ArtistController.class).getArtist(Artist_id)).withSelfRel();
+    @PostMapping(value = "/api/artist/{artist_id}/project/{project_id}")
+    public  ResponseEntity<ArtistDTO> addProjectForArtist(@PathVariable Long artist_id, @PathVariable Long project_id)
+            throws NoSuchArtistException, NoSuchProjectException, NoSuchOrganizationException, AlreadyExistsProjectInArtistException, ProjectAbsentException {
+        ArtistService.addProjectForArtist(artist_id,project_id);
+        Artist Artist = ArtistService.getArtist(artist_id);
+        Link link = linkTo(methodOn(ArtistController.class).getArtist(artist_id)).withSelfRel();
 
         ArtistDTO artistDTO = new ArtistDTO(Artist, link);
 
         return new ResponseEntity<>(artistDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/api/artist/{Artist_id}//{Project_id}")
-    public  ResponseEntity<ArtistDTO> removeProjectForArtist(@PathVariable Long Artist_id, @PathVariable Long Project_id)
-            throws NoSuchArtistException, NoSuchProjectException, ArtistHasNotProjectException {
-        ArtistService.removeProjectForArtist(Artist_id,Project_id);
-        Artist Artist = ArtistService.getArtist(Artist_id);
-        Link link = linkTo(methodOn(ArtistController.class).getArtist(Artist_id)).withSelfRel();
+    @DeleteMapping(value = "/api/artist/{artist_id}/{project_id}")
+    public  ResponseEntity<ArtistDTO> removeProjectForArtist(@PathVariable Long artist_id, @PathVariable Long project_id)
+            throws NoSuchArtistException, NoSuchProjectException, NoSuchOrganizationException, ArtistHasNotProjectException {
+        ArtistService.removeProjectForArtist(artist_id,project_id);
+        Artist Artist = ArtistService.getArtist(artist_id);
+        Link link = linkTo(methodOn(ArtistController.class).getArtist(artist_id)).withSelfRel();
 
         ArtistDTO artistDTO = new ArtistDTO(Artist, link);
 
