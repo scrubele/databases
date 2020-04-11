@@ -1,3 +1,3 @@
 # Java projects
 
-Different REST APIs using Java an MySQL
+REST APIs using Java and MySQL.
