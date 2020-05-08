@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DESKTOP-DDAN4MP</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAzYaBf+fAv0yX8YGL9cQSaQAAAAACAAAAAAAQZgAAAAEAACAAAACmteVuF233EEAYpC40jdOSOHVPwk8HibIUqb7g/nTJMwAAAAAOgAAAAAIAACAAAABIUw84aL/VMqqSsP4tFLuidCBOG9jy/LI5GhULi7BqHpAAAACd3plFHY+hbT3rWwgBlU4yeVS8VlQCF6z7H8T0uTosRQVF/hz12KsoZ6zxzZQ8Qg1pYqQda2lfC1y8N3ZAk9okSsmOhS+OcGPq443zxuFIjbnjIfT+16ZsuJRODkteEmZAPflkrNuV49C3ZkUZmcTnlVfuqA98PYuTx7YMGdBC3oDP0lmgw8lNCdg1pJI0wudAAAAACN21/3PHJuNX+3PfX6yq2vSPOaQoK+vDKMoOhGJ5Vm6morp71CLJv/ec6sRI6bW1lndh0yjXZQFoEKFlwIG7RA==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAzYaBf+fAv0yX8YGL9cQSaQAAAAACAAAAAAAQZgAAAAEAACAAAADIh99tkMtNn/mj3FWEk55nG9VUXdRbVm5xwRIKVXRMgQAAAAAOgAAAAAIAACAAAACki8J4p90suqZT8Qcb8rg8iEKuBRc3uPEF0bc9R5iAlJAAAAAcleQigNRh9J20hijdZYYYrCG/6eX75F2b55Ls0qCXgXNko+EoJ1HsaY25NsEj2tUvD2P53vU153qvNpxofN8R3yVXTpM0QmlQsDMtq4GB++14MeiaesnDtMDpGHRYp7HPtNOlQ6YdASVAtAk5E/UTf7TmdMr5J82gWSiTD85wJp2oPxbwt6+y5gtyWl5vKeVAAAAAIY/Lsvjoz7xGjZRCz6ksfyiJak9S6OLzHGHPYfmtPK66y4ED0ax7/muSaT6wPDdDR0xa6F4RwsurU1IX6Uy5VQ==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -42,16 +42,46 @@
                 <SSIS:Property SSIS:Name="Name">Package</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">2</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{B9A532B7-3DB4-426B-80E0-C7FEC1701CD2}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{86EBBD8E-9DC9-43D3-AF78-06596D560927}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
               </SSIS:Properties>
               <SSIS:Parameters>
+                <SSIS:Parameter SSIS:Name="CM.DataAdder.sql.ConnectionString">
+                  <SSIS:Properties>
+                    <SSIS:Property SSIS:Name="ID">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="CreationName">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="Description">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">D:\university\databases\microsoft_ssis\Spotify_DB\DataAdder.sql</SSIS:Property>
+                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+                  </SSIS:Properties>
+                </SSIS:Parameter>
+                <SSIS:Parameter SSIS:Name="CM.DatabaseCreator.sql.ConnectionString">
+                  <SSIS:Properties>
+                    <SSIS:Property SSIS:Name="ID">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="CreationName">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="Description">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">D:\university\databases\microsoft_ssis\Spotify_DB\DatabaseCreator.sql</SSIS:Property>
+                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+                  </SSIS:Properties>
+                </SSIS:Parameter>
                 <SSIS:Parameter SSIS:Name="CM.DESKTOP-DDAN4MP.ConnectByProxy">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">

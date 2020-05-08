@@ -21,7 +21,10 @@ CREATE TABLE [basic_user]
   [basic_user_id] INT IDENTITY,
   [email] NVARCHAR(50) NULL,
   [password] NVARCHAR(50) NULL,
-  [premium] TINYINT NULL
+  [age] TINYINT NULL,
+  [premium] TINYINT NULL,
+  [country] NVARCHAR(50) NULL,
+
 );
 
 go
@@ -61,7 +64,6 @@ CREATE TABLE [song]
   [name] NVARCHAR(50) NULL,
   [length] INT NULL,
   [rating] INT NULL,
-  [listencount] INT NULL,
 );
 
 ALTER TABLE [song]
@@ -69,26 +71,58 @@ ALTER TABLE [song]
 
 go
 
+CREATE TABLE [session]
+(
+  [session_id] INT IDENTITY,
+  [day] INT NULL,
+  [month] INT NULL,
+  [year] INT NULL,
+  [duration] int NULL,
+  [device] NVARCHAR(50) NULL,
+);
+
+ALTER TABLE [session]
+  ADD CONSTRAINT pk_session PRIMARY KEY NONCLUSTERED ([session_id]);
+
+  go
+
+CREATE TABLE [feedback]
+(
+  [feedback_id] INT IDENTITY,
+  [is_liked] INT,
+  [is_disliked] INT,
+  [is_skipped] INT,
+);
+
+ALTER TABLE [feedback]
+  ADD CONSTRAINT pk_feedback PRIMARY KEY NONCLUSTERED ([feedback_id]);
+  go
+
 CREATE TABLE basic_user_song
 (
   [basic_user_id] INT,
   [song_id] INT,
-  CONSTRAINT basic_user_song_pk PRIMARY KEY ([basic_user_id], [song_id]),
+  [session_id] INT,
+  [feedback_id] INT,
+  CONSTRAINT basic_user_song_pk PRIMARY KEY ([basic_user_id], [song_id], [session_id]),
   CONSTRAINT fk_basic_user_song_basic_user_id FOREIGN KEY ([basic_user_id]) REFERENCES [basic_user] (
      [basic_user_id]),
   CONSTRAINT fk_basic_user_song_song_id FOREIGN KEY ([song_id]) REFERENCES song (
-     [song_id])
+     [song_id]),
+  CONSTRAINT fk_basic_user_song_session_id FOREIGN KEY ([session_id]) REFERENCES [session] (
+     [session_id]),
+  CONSTRAINT fk_basic_user_song_feedback_id FOREIGN KEY ([feedback_id]) REFERENCES [feedback] (
+     [feedback_id])
 );
 
 CREATE TABLE [artist]
 (
-  [artist_id] INT UNIQUE NOT NULL,
+  [artist_id] INT IDENTITY,
   [genre_id] INT NULL,
 );
 
 ALTER TABLE [artist]
   ADD CONSTRAINT pk_artists PRIMARY KEY NONCLUSTERED ([artist_id]);
-
 go
 
 ALTER TABLE [artist]
