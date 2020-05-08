@@ -65,9 +65,9 @@ INSERT INTO [basic_user_song]
     (basic_user_id, song_id, session_id, feedback_id)
 VALUES
     (1, 1, 1, 1),
-    (2, 2, 3, 2),
-	(4, 1, 1, 1),
-    (6, 2, 3, 2)
+    (2, 2, 2, 2),
+	(4, 1, 3, 1),
+    (6, 2, 4, 1)
 go
 
 INSERT INTO [artist]
